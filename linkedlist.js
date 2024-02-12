@@ -1,11 +1,25 @@
 "use-strict"
 
+// ------------------------------- MOCKED DATA ----------------------
 const node1 = {
     prev: null,
     next: null,
     data: "A"
 }
+const node2 = {
+    prev: null,
+    next: null,
+    data: "B"
+}
+const node3 = {
+    prev: null,
+    next: null,
+    data: "E"
+}
 
+
+
+// ------------------------------- FIRST ----------------------
 class LinkedList {
     constructor() {
         // test-code: change later
@@ -15,25 +29,14 @@ class LinkedList {
     }
 }
 
+
+
+// ------------------------------- INSTANTIATING THE LINKED LIST ----------------------
 const linkedList = new LinkedList();
 
 
-const node2 = {
-    prev: null,
-    next: null,
-    data: "B"
-}
 
-const node3 = {
-    prev: null,
-    next: null,
-    data: "E"
-}
-
-
-
-// ----------- LINKEDLIST METHODS --------------
-
+// ------------------------------- PRINT LIST -> DATA ----------------------
 const printListData = () => {
     if (linkedList.size === 0) {
         console.log("Empty list");
@@ -53,6 +56,9 @@ const printListData = () => {
     }
 }
 
+
+
+// ------------------------------- ADD ----------------------
 const add = (payload) => {
     if (linkedList.size === 0) {
         linkedList.head = payload;
@@ -64,7 +70,6 @@ const add = (payload) => {
     }
     linkedList.size++;
 }
-
 // add(node2);
 // add(node3);
 // add({
@@ -75,11 +80,11 @@ const add = (payload) => {
 // printList();
 
 
-// ----------------------- ADDING LAST -----------------
+
+// ------------------------------- ADD LAST ----------------------
 const addLast = (payload) => {
     add(payload);
 }
-
 // add({
 //     prev: null,
 //     next: null,
@@ -98,7 +103,8 @@ const addLast = (payload) => {
 // printListData();
 
 
-// ----------------------- ADDING FIRST -----------------
+
+// ------------------------------- ADD FIRST ----------------------
 const addFirst = (payload) => {
     if (linkedList.size === 0) {
         linkedList.head = payload;
@@ -109,7 +115,6 @@ const addFirst = (payload) => {
     }
     linkedList.size++;
 }
-
 // addFirst({
 //     prev: null,
 //     next: null,
@@ -134,7 +139,8 @@ const addFirst = (payload) => {
 // printListData();
 
 
-// ----------------------- CLEAR -----------------
+
+// ------------------------------- CLEAR ----------------------
 const clear = () => {
     if (linkedList.size === 0) return;
 
@@ -148,27 +154,27 @@ const clear = () => {
     }
     linkedList.head = null;
     linkedList.tail = null;
-    //linkedList.size = 0;
+    linkedList.size = 0;
 }
 // printListData();
 // clear();
 // printListData()
 
 
-// ----------------------- GET -----------------
+
+// ------------------------------- GET ----------------------
 const get = (index) => {
     if (linkedList.size === 0) return;
 
     let counter = 0;
-    let pointer = linkedList.head;
-    while (pointer != null) {
+    let currentNode = linkedList.head;
+    while (currentNode != null) {
         if (index === counter) return pointer;
 
-        pointer = pointer.next;
+        currentNode = currentNode.next;
         counter++;
     }
 }
-
 // addFirst({
 //     prev: null,
 //     next: null,
@@ -185,8 +191,7 @@ const get = (index) => {
 
 
 
-// ----------------------- INDEX OF -----------------
-
+// ------------------------------- INDEX OF ----------------------
 const indexOf = (payload) => {
     if (linkedList.size === 0) return;
 
@@ -199,7 +204,6 @@ const indexOf = (payload) => {
         currentNode = currentNode.next;
     }
 }
-
 // addFirst({
 //     prev: null,
 //     next: null,
@@ -215,7 +219,8 @@ const indexOf = (payload) => {
 // console.log(indexOf({ prev: null, next: null, data: "A" }));
 
 
-// ----------------------- INSERT AFTER -----------------
+
+// ------------------------------- INSERT AFTER ----------------------
 const insertAfter = (index, payload) => {
     if (index > linkedList.size - 1) return;
 
@@ -246,7 +251,6 @@ const insertAfter = (index, payload) => {
         }
     }
 }
-
 // insertAfter(0, {
 //     prev: null,
 //     next: null,
@@ -261,7 +265,7 @@ const insertAfter = (index, payload) => {
 
 
 
-// ----------------------- INSERT BEFORE -----------------
+// ------------------------------- INSERT BEFORE ----------------------
 
 const insertBefore = (index, payload) => {
     if (index < 0 || index > linkedList.size - 1) return;
@@ -297,7 +301,6 @@ const insertBefore = (index, payload) => {
         }
     }
 }
-
 // insertBefore(0, {
 //     prev: null,
 //     next: null,
@@ -315,7 +318,9 @@ const insertBefore = (index, payload) => {
 // });
 // printListData();
 
-// ----------------------- FIRST -----------------
+
+
+// ------------------------------- FIRST ----------------------
 const first = () => {
     if (linkedList.size === 0) return;
     return linkedList.head;
@@ -325,7 +330,7 @@ const first = () => {
 // console.log(first().data)
 
 
-// ----------------------- LAST -----------------
+// ------------------------------- LAST ----------------------
 const last = () => {
     if (linkedList.size === 0) return;
     return linkedList.tail;
@@ -335,17 +340,51 @@ const last = () => {
 // console.log(last().data)
 
 
-// ----------------------- REMOVE -----------------
+// ------------------------------- REMOVE ----------------------
+const remove = (index) => {
+    if (linkedList.size === 0 || index > linkedList.size - 1) return;
 
-const remove = () => {
-    if (linkedList.size === 0) return;
+    if (linkedList.size === 1) {
+        const removedNode = linkedList.head;
+        linkedList.head = null;
+        linkedList.tail = null;
+        linkedList.size--;
 
-    let currentNode = linkedList.head;
-    while (currentNode !== null) {
+        return removedNode;
+    } else {
+        let counter = 0;
+        let currentNode = linkedList.head;
+        while (currentNode !== null) {
+            if (index === counter) {
+                const removedNode = currentNode;
 
+                if (index === 0) {
+                    if (currentNode.next !== null) {
+                        currentNode.next.prev = null;
+                        linkedList.head = currentNode.next;                        
+                    }
+                } else {
+                    if (currentNode.prev !== null) currentNode.prev.next = currentNode.next;
+                    if (currentNode.next !== null) currentNode.next.prev = currentNode.prev;
+                }
 
-        currentNode = currentNode.next;
+                linkedList.size--;
+                return removedNode;
+            }
+
+            counter++;
+            currentNode = currentNode.next;
+        }
     }
-
-    linkedList.size--;
 }
+
+clear()
+add({next: null, prev: null, data: "NEWLY"});
+add({next: null, prev: null, data: "ANOTHER"});
+add({next: null, prev: null, data: "ANOTHERONE"});
+printListData();
+console.log("--------------")
+console.log(remove(0));
+console.log(remove(1));
+console.log("--------------")
+printListData();
