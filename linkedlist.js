@@ -361,7 +361,7 @@ const remove = (index) => {
                 if (index === 0) {
                     if (currentNode.next !== null) {
                         currentNode.next.prev = null;
-                        linkedList.head = currentNode.next;                        
+                        linkedList.head = currentNode.next;
                     }
                 } else {
                     if (currentNode.prev !== null) currentNode.prev.next = currentNode.next;
@@ -377,14 +377,78 @@ const remove = (index) => {
         }
     }
 }
+// clear()
+// add({next: null, prev: null, data: "NEWLY"});
+// add({next: null, prev: null, data: "ANOTHER"});
+// add({next: null, prev: null, data: "ANOTHERONE"});
+// printListData();
+// console.log("--------------")
+// console.log(remove(0));
+// console.log(remove(1));
+// console.log("--------------")
+// printListData();
 
-clear()
-add({next: null, prev: null, data: "NEWLY"});
-add({next: null, prev: null, data: "ANOTHER"});
-add({next: null, prev: null, data: "ANOTHERONE"});
-printListData();
-console.log("--------------")
-console.log(remove(0));
-console.log(remove(1));
-console.log("--------------")
-printListData();
+
+
+// ------------------------------- REMOVE FIRST ----------------------
+const removeFirst = () => {
+    if (linkedList.size === 0) return
+    if (linkedList.size === 1) {
+        const removedNode = linkedList.head;
+        linkedList.head = null;
+        linkedList.tail = null;
+        
+        linkedList.size--;
+
+        return removedNode;
+    } else {
+        const removedNode = linkedList.head;
+        linkedList.head = linkedList.head.next;
+
+        linkedList.size--;
+        return removedNode;
+    }
+}
+// clear()
+// add({next: null, prev: null, data: "NEWLY"});
+// add({next: null, prev: null, data: "ANOTHER"});
+// add({next: null, prev: null, data: "ANOTHERONE"});
+// printListData();
+// console.log("--------------")
+// console.log(removeFirst());
+// console.log(removeFirst());
+// console.log("--------------")
+// printListData();
+
+
+
+// ------------------------------- REMOVE LAST ----------------------
+const removeLast = () => {
+    if (linkedList.size === 0) return
+    if (linkedList.size === 1) {
+        const removedNode = linkedList.head;
+        linkedList.head = null;
+        linkedList.tail = null;
+        
+        linkedList.size--;
+
+        return removedNode;
+    } else {
+        const removedNode = linkedList.tail;        
+        linkedList.tail = linkedList.tail.prev;
+        linkedList.tail.next = null;
+
+        linkedList.size--;
+        return removedNode;
+    }
+}
+// clear()
+// add({next: null, prev: null, data: "NEWLY"});
+// add({next: null, prev: null, data: "ANOTHER"});
+// add({next: null, prev: null, data: "ANOTHERONE"});
+// printListData();
+// console.log("--------------")
+// console.log(removeLast());
+// console.log(removeLast());
+// console.log("--------------")
+// printListData();
