@@ -216,7 +216,7 @@ const indexOf = (payload) => {
 
 
 // ----------------------- INSERT AFTER -----------------
-const insertAfter = ( index, payload ) => {
+const insertAfter = (index, payload) => {
     if (index > linkedList.size - 1) return;
 
     if (linkedList.size === 0) {
@@ -224,19 +224,19 @@ const insertAfter = ( index, payload ) => {
         linkedList.tail = payload;
         linkedList.size++;
     } else {
-        
+
         let counter = 0;
         let currentNode = linkedList.head;
-        
-        while(currentNode !== null) {        
+
+        while (currentNode !== null) {
 
             if (index === counter) {
                 payload.next = currentNode.next;
                 payload.prev = currentNode;
                 currentNode.next = payload;
-                
+
                 if (linkedList.size === counter + 1) linkedList.tail = payload;
-                
+
                 linkedList.size++;
                 return;
             }
@@ -244,7 +244,7 @@ const insertAfter = ( index, payload ) => {
             counter++;
             currentNode = currentNode.next;
         }
-    }    
+    }
 }
 
 // insertAfter(0, {
@@ -263,31 +263,31 @@ const insertAfter = ( index, payload ) => {
 
 // ----------------------- INSERT BEFORE -----------------
 
-const insertBefore = ( index, payload ) => {
+const insertBefore = (index, payload) => {
     if (index < 0 || index > linkedList.size - 1) return;
 
     if (linkedList.size === 0) {
         linkedList.head = payload;
         linkedList.tail = payload;
-        linkedList.size++;        
+        linkedList.size++;
     } else {
-        
+
         let counter = 0;
-        let currentNode = linkedList.head;        
-        while(currentNode !== null) {        
-            
+        let currentNode = linkedList.head;
+        while (currentNode !== null) {
+
             if (index === counter) {
                 payload.next = currentNode;
-                payload.prev = currentNode.prev;   
+                payload.prev = currentNode.prev;
 
-                if (currentNode.prev === null) {                    
+                if (currentNode.prev === null) {
                     linkedList.head = payload;
-                }else {
+                } else {
                     currentNode.prev.next = payload;
                 }
 
                 currentNode.prev = payload;
-                
+
                 linkedList.size++;
                 return;
             }
@@ -295,25 +295,45 @@ const insertBefore = ( index, payload ) => {
             counter++;
             currentNode = currentNode.next;
         }
-    } 
+    }
 }
 
-insertBefore(0, {
-    prev: null,
-    next: null,
-    data: "SECOND"
-});
-insertBefore(1, {
-    prev: null,
-    next: null,
-    data: "FIRST"
-});
-insertBefore(2, {
-    prev: null,
-    next: null,
-    data: "SOMETHING"
-});
-printListData();
+// insertBefore(0, {
+//     prev: null,
+//     next: null,
+//     data: "SECOND"
+// });
+// insertBefore(1, {
+//     prev: null,
+//     next: null,
+//     data: "FIRST"
+// });
+// insertBefore(2, {
+//     prev: null,
+//     next: null,
+//     data: "SOMETHING"
+// });
+// printListData();
+
+// ----------------------- FIRST -----------------
+const first = () => {
+    if (linkedList.size === 0) return;
+    return linkedList.head;
+}
+// insertBefore(0, {prev: null, next: null, data: "HEYO"});
+// insertBefore(0, {prev: null, next: null, data: "LOLOLER"});
+// console.log(first().data)
+
+
+// ----------------------- LAST -----------------
+const last = () => {
+    if (linkedList.size === 0) return;
+    return linkedList.tail;
+}
+// insertBefore(0, {prev: null, next: null, data: "HEYO"});
+// insertAfter(linkedList.size - 1, {prev: null, next: null, data: "LOLOLER"});
+// console.log(last().data)
+
 
 // ----------------------- REMOVE -----------------
 
